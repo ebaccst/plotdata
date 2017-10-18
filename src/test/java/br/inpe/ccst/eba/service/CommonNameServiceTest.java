@@ -2,21 +2,28 @@ package br.inpe.ccst.eba.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import br.inpe.ccst.eba.service.CommonNameService;;
+import br.inpe.ccst.eba.AbstractTest;
+import br.inpe.ccst.eba.repository.CommonNameRepository;;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class CommonNameServiceTest {
+public class CommonNameServiceTest extends AbstractTest {
 
 	@Autowired
 	private CommonNameService service;
+
+	@MockBean
+	private CommonNameRepository repositoryMock;
+
+	@Before
+	public void setUp() {
+		when(this.repositoryMock.getCountOfRecords()).thenReturn(DEFAULT_COUNT_RECORDS);
+	}
 
 	@Test
 	public void shouldServiceNotBeNull() {
@@ -25,6 +32,6 @@ public class CommonNameServiceTest {
 
 	@Test
 	public void testGetCountOfRecords() {
-		assertEquals(new Integer(11743), this.service.getCountOfRecords());
+		assertEquals(DEFAULT_COUNT_RECORDS, this.service.getCountOfRecords());
 	}
 }

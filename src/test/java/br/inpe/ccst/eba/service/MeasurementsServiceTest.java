@@ -2,20 +2,28 @@ package br.inpe.ccst.eba.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class MeasurementsServiceTest {
-	
+import br.inpe.ccst.eba.AbstractTest;
+import br.inpe.ccst.eba.repository.MeasurementsRepository;
+
+public class MeasurementsServiceTest extends AbstractTest {
 	@Autowired
 	private MeasurementsService service;
-	
+
+	@MockBean
+	private MeasurementsRepository repositoryMock;
+
+	@Before
+	public void setUp() {
+		when(this.repositoryMock.getCountOfRecords()).thenReturn(DEFAULT_COUNT_RECORDS);
+	}
+
 	@Test
 	public void shouldServiceNotBeNull() {
 		assertNotNull(this.service);
@@ -23,6 +31,6 @@ public class MeasurementsServiceTest {
 
 	@Test
 	public void shouldGetCountOfRecords() {
-		assertEquals(new Integer(10186), this.service.getCountOfRecords());
+		assertEquals(DEFAULT_COUNT_RECORDS, this.service.getCountOfRecords());
 	}
 }
