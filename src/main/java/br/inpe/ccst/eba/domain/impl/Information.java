@@ -2,6 +2,8 @@ package br.inpe.ccst.eba.domain.impl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import br.inpe.ccst.eba.domain.AbstractEntity;
@@ -27,7 +29,8 @@ public class Information extends AbstractEntity {
     private String plot;
 
     @Column(name = "height")
-    private String height;
+    @Enumerated(EnumType.STRING)
+    private InformationHeight height;
 
     @Column(name = "dead")
     private String dead;
