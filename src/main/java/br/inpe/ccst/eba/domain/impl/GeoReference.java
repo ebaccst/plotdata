@@ -21,7 +21,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class GeoReference extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 

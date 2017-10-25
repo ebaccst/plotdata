@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Owner extends CommonsFields{
 	private static final long serialVersionUID = 1L;
 	

@@ -14,9 +14,13 @@ import lombok.Setter;
 @Table(name = "genus")
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Genus extends CommonsFields {
 	private static final long serialVersionUID = 1L;
+	
+	@Builder
+	public Genus(String name) {
+		super(name);
+	}
 }

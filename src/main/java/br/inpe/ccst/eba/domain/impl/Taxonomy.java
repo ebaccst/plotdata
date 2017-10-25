@@ -8,7 +8,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.inpe.ccst.eba.domain.CommonsFields;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,10 +18,8 @@ import lombok.Setter;
 @Table(name = "taxonomy")
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Taxonomy extends CommonsFields{
 	private static final long serialVersionUID = 1L;
 
@@ -32,11 +29,11 @@ public class Taxonomy extends CommonsFields{
 
     @JoinColumn(name = "genus_id")
     @OneToOne(cascade = CascadeType.ALL)
-    private Family genus;
+    private Genus genus;
 
     @JoinColumn(name = "species_id")
     @OneToOne(cascade = CascadeType.ALL)
-    private Family species;
+    private Species species;
 
     @JoinColumn(name = "density", nullable = false)
     private Double density;
@@ -46,4 +43,14 @@ public class Taxonomy extends CommonsFields{
 
     @JoinColumn(name = "article_reference")
     private String articleReference;
+
+    @Builder
+	public Taxonomy(String name, Family family, Genus genus, Species species) {
+		super(name);
+		this.family = family;
+		this.genus = genus;
+		this.species = species;
+	}
+    
+    
 }

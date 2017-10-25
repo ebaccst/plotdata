@@ -27,6 +27,10 @@ public class SuggestionServiceImpl implements SuggestionService {
 		Integer distance = argumentDistance;
 		Map<String, Integer> possibleResults = new HashMap<>();
 		for (String option : options) {
+			if (option.equals(argument)) {
+				return option; 
+			}
+			
 			Integer currentDistance = UNLIMITED_DISTANCE.apply(argument, option);
 			if (option.contains(argument)) {
 				possibleResults.put(option, currentDistance);
@@ -42,7 +46,9 @@ public class SuggestionServiceImpl implements SuggestionService {
 			return word;
 		}
 
-		Optional<Entry<String, Integer>> bestAlternative = possibleResults.entrySet().stream()
+		Optional<Entry<String, Integer>> bestAlternative = possibleResults
+				.entrySet()
+				.stream()
 				.min(Map.Entry.comparingByValue());
 		if (bestAlternative.isPresent()) {
 			return bestAlternative.get().getKey();

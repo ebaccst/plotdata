@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import br.inpe.ccst.eba.domain.impl.CommonName;
+import br.inpe.ccst.eba.repository.CommonNameRepository;
 import br.inpe.ccst.eba.service.CommonNameService;
 import br.inpe.ccst.eba.service.MeasurementsService;
 import br.inpe.ccst.eba.service.TaxonomyService;
@@ -34,6 +36,16 @@ public class App {
 		return args -> {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			System.out.println(measurementsService.getCountOfRecords());
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		};
+	}
+	
+	@Bean
+	CommandLineRunner repo(CommonNameRepository repo) {
+		return args -> {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			CommonName commonName = repo.findByNameUsingFrequence("abacate");
+			System.out.println(commonName);
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		};
 	}

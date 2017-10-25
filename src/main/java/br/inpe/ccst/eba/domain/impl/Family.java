@@ -14,9 +14,13 @@ import lombok.Setter;
 @Table(name = "family")
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Family extends CommonsFields{
 	private static final long serialVersionUID = 1L;
+
+	@Builder
+	public Family(String name) {
+		super(name);
+	}
 }

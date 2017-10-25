@@ -19,7 +19,7 @@ public class TaxonomyRepositoryTest extends AbstractTest {
 	}
 
 	@Test
-	public void shouldGetCountOfRows() throws Exception {
+	public void shouldGetCountOfRows() {
 		assertEquals(new Integer(16467), this.repository.getCountOfRecords());
 	}
 }

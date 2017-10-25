@@ -7,7 +7,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.inpe.ccst.eba.domain.CommonsFields;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,10 +17,8 @@ import lombok.Setter;
 @Table(name = "common_name")
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class CommonName extends CommonsFields {
 	private static final long serialVersionUID = 1L;
 
@@ -31,9 +28,17 @@ public class CommonName extends CommonsFields {
 
     @JoinColumn(name = "genus_id")
     @OneToOne(cascade = CascadeType.ALL)
-    private Family genus;
+    private Genus genus;
 
     @JoinColumn(name = "species_id")
     @OneToOne(cascade = CascadeType.ALL)
-    private Family species;
+    private Species species;
+
+    @Builder
+	public CommonName(String name, Family family, Genus genus, Species species) {
+		super(name);
+		this.family = family;
+		this.genus = genus;
+		this.species = species;
+	}
 }

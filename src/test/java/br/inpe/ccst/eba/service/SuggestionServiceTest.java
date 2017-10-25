@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,18 @@ public class SuggestionServiceTest extends AbstractTest {
 			assertThat(this.service.getBestMatch("aa", options), is(equalTo("aaaaa")));
 			assertThat(this.service.getBestMatch("a", options), is(equalTo("aaaaa")));
 			assertThat(this.service.getBestMatch("aaac", options), is(equalTo("aaaac")));
+			
+			long startTimeEquals = System.nanoTime();
+			String bestMatchEquals = this.service.getBestMatch("bbbbb", options);
+			long estimatedTimeEquals = System.nanoTime() - startTimeEquals;
+			
+			
+			long startTimeDiff = System.nanoTime();
+			String bestMatchDiff = this.service.getBestMatch("bbbbc", options);
+			long estimatedTimeDiff = System.nanoTime() - startTimeDiff;
+			
+			assertThat(estimatedTimeDiff, greaterThan(estimatedTimeEquals));
+			assertThat(bestMatchDiff, is(equalTo(bestMatchEquals)));
 		}
 
 }
