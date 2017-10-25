@@ -5,11 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import br.inpe.ccst.eba.domain.impl.CommonName;
-import br.inpe.ccst.eba.repository.CommonNameRepository;
 import br.inpe.ccst.eba.service.CommonNameService;
-import br.inpe.ccst.eba.service.MeasurementsService;
-import br.inpe.ccst.eba.service.TaxonomyService;
 
 @SpringBootApplication
 public class App {
@@ -22,33 +18,16 @@ public class App {
 		};
 	}
 
-	@Bean
-	CommandLineRunner taxonomy(TaxonomyService taxonomyService) {
-		return args -> {
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			System.out.println(taxonomyService.getCountOfRecords());
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		};
-	}
-
-	@Bean
-	CommandLineRunner measurements(MeasurementsService measurementsService) {
-		return args -> {
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			System.out.println(measurementsService.getCountOfRecords());
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		};
-	}
-	
-	@Bean
-	CommandLineRunner repo(CommonNameRepository repo) {
-		return args -> {
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			CommonName commonName = repo.findByNameUsingFrequence("abacate");
-			System.out.println(commonName);
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		};
-	}
+	// @Bean
+	// CommandLineRunner repo(FamilyRepository repo) {
+	// return args -> {
+	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+	// Family findOne = repo.findOne(1L);
+	// System.out.println(findOne.getName());
+	//
+	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+	// };
+	// }
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
