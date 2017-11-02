@@ -36,22 +36,53 @@ public class TaxonomyServiceTest extends AbstractTest {
 
 	@Before
 	public void setUp() {
+		
 		when(this.familyRepositoryMock.findByNameLike(DEFAULT_FAMILY_GENUS_NAME_LIKE))
 				.thenReturn(getDefaultOptionsFamily());
-		when(this.familyRepositoryMock.findByName(getDefaultOptionsFamily().get(0))).thenReturn(getDefaultFamily());
+		final Family defaultFamily = getDefaultFamily();
+		defaultFamily.setId(1L);
+		when(this.familyRepositoryMock.findByName(getDefaultOptionsFamily().get(0))).thenReturn(defaultFamily);
 
 		when(this.genusRepositoryMock.findByNameLike(DEFAULT_FAMILY_GENUS_NAME_LIKE))
 				.thenReturn(getDefaultOptionsGenus());
-		when(this.genusRepositoryMock.findByName(getDefaultOptionsGenus().get(0))).thenReturn(getDefaultGenus());
+		final Genus defaultGenus = getDefaultGenus();
+		defaultGenus.setId(1L);
+		when(this.genusRepositoryMock.findByName(getDefaultOptionsGenus().get(0))).thenReturn(defaultGenus);
 
 		when(this.speciesRepositoryMock.findByNameLike(DEFAULT_SPECIES_NAME_LIKE))
 				.thenReturn(getDefaultOptionsSpecies());
-		when(this.speciesRepositoryMock.findByName(getDefaultOptionsSpecies().get(0))).thenReturn(getDefaultSpecies());
+		final Species defaultSpecies = getDefaultSpecies();
+		defaultSpecies.setId(1L);
+		when(this.speciesRepositoryMock.findByName(getDefaultOptionsSpecies().get(0))).thenReturn(defaultSpecies);
 	}
 
 	@Test
 	public void shouldServiceNotBeNull() {
 		assertNotNull(this.service);
+	}
+	
+	@Test
+	public void shouldFindFamily() {
+		final Family findFamily = this.service.findFamily(getDefaultFamily().getName());
+
+		assertThat(findFamily, is(not(nullValue())));
+		assertThat(findFamily.getId(), is(not(nullValue())));
+	}
+
+	@Test
+	public void shouldFindGenus(){
+		final Genus findGenus = this.service.findGenus(getDefaultGenus().getName());
+
+		assertThat(findGenus, is(not(nullValue())));
+		assertThat(findGenus.getId(), is(not(nullValue())));
+	}
+
+	@Test
+	public void shouldFindSpecies() {
+		final Species findSpecies = this.service.findSpecies(getDefaultSpecies().getName());
+
+		assertThat(findSpecies, is(not(nullValue())));
+		assertThat(findSpecies.getId(), is(not(nullValue())));
 	}
 
 	@Test

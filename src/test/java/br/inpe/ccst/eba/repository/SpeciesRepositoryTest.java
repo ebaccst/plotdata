@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.inpe.ccst.eba.AbstractTest;
+import br.inpe.ccst.eba.domain.impl.Species;
 
 public class SpeciesRepositoryTest extends AbstractTest {
 	
@@ -31,4 +32,13 @@ public class SpeciesRepositoryTest extends AbstractTest {
 		assertThat(options.get(0), is(equalTo("antrocaryon nannanii")));
 		assertThat(options.get(1), is(equalTo("stereospermum annamense")));
 	}
+	
+	@Test
+	public void shouldFindByName() {
+		Species findByName = this.repository.findByName("antrocaryon nannanii");
+		
+		assertThat(findByName.getId(), is(not(nullValue())));
+	}
+	
+	
 }

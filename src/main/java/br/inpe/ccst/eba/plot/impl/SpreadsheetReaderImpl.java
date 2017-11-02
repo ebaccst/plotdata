@@ -4,15 +4,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+import br.inpe.ccst.eba.plot.Record;
 import br.inpe.ccst.eba.plot.Spreadsheet;
+import br.inpe.ccst.eba.plot.Spreadsheet.SpreadsheetBuilder;
 import br.inpe.ccst.eba.plot.SpreadsheetHeader;
 import br.inpe.ccst.eba.plot.SpreadsheetReader;
 import lombok.extern.slf4j.Slf4j;
@@ -25,21 +25,21 @@ public class SpreadsheetReaderImpl implements SpreadsheetReader {
 	private char delimiter;
 	
 	@Override
-	public Set<Spreadsheet> get(String filepath) {
+	public Spreadsheet get(String filepath) {
 		CSVFormat csvFormat = CSVFormat.RFC4180
 				.withFirstRecordAsHeader()
 				.withIgnoreEmptyLines()
 				.withIgnoreSurroundingSpaces()
 				.withDelimiter(delimiter);
 		
-		Set<Spreadsheet> spreadsheets = new HashSet<>();
+		 SpreadsheetBuilder builder = Spreadsheet.builder();
 	
 		try {
 			Reader in = new FileReader(filepath);
 			Iterable<CSVRecord> records = csvFormat.parse(in);
 			for (CSVRecord record : records) {
 				
-				Spreadsheet spreadsheet = Spreadsheet.builder()
+				Record rec = Record.builder()
 					.recordNumber(record.getRecordNumber())
 					.plot(record.get(SpreadsheetHeader.PLOT.get()))
 					.informationPlot(record.get(SpreadsheetHeader.INFORMATION_PLOT.get()))
@@ -55,7 +55,7 @@ public class SpreadsheetReaderImpl implements SpreadsheetReader {
 					.informationType(record.get(SpreadsheetHeader.INFORMATION_TYPE.get()))
 					.build();
 				
-			   spreadsheets.add(spreadsheet);
+			   builder.record(rec);
 			}
 		} catch (FileNotFoundException e) {
 			log.error("Spreedsheet not found in '{}': {}", filepath, e.getMessage());
@@ -63,7 +63,7 @@ public class SpreadsheetReaderImpl implements SpreadsheetReader {
 			log.error("Error to load spreedsheet '{}': {}", filepath, e.getMessage());
 		}
 
-		return spreadsheets;
+		return builder.build();
 	}
 
 }

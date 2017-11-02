@@ -29,24 +29,39 @@ public class TaxonomyServiceImpl implements TaxonomyService {
 	private SuggestionService suggestion;
 
 	@Override
+	public Family findFamily(String family) {
+		return this.familyRepository.findByName(family);
+	}
+
+	@Override
+	public Genus findGenus(String genus) {
+		return this.genusRepository.findByName(genus);
+	}
+
+	@Override
+	public Species findSpecies(String species) {
+		return this.speciesRepository.findByName(species);
+	}
+
+	@Override
 	public Family getSuggestionFamily(String name) {
 		List<String> options = this.familyRepository.findByNameLike(name);
 		String sug = this.suggestion.getBestMatch(name, options);
-		return this.familyRepository.findByName(sug);
+		return this.findFamily(sug);
 	}
 
 	@Override
 	public Genus getSuggestionGenus(String name) {
 		List<String> options = this.genusRepository.findByNameLike(name);
 		String sug = this.suggestion.getBestMatch(name, options);
-		return this.genusRepository.findByName(sug);
+		return this.findGenus(sug);
 	}
 
 	@Override
 	public Species getSuggestionSpecies(String name) {
 		List<String> options = this.speciesRepository.findByNameLike(name);
 		String sug = this.suggestion.getBestMatch(name, options);
-		return this.speciesRepository.findByName(sug);
+		return this.findSpecies(sug);
 	}
 
 }

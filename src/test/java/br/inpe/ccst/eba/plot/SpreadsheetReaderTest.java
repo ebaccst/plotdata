@@ -6,7 +6,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import java.net.URL;
-import java.util.Set;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class SpreadsheetReaderTest extends AbstractTest {
 	@Test
 	public void shouldLoadASpreadsheetFromDisk() {
 		URL resource = this.getClass().getClassLoader().getResource(SPREADSHEET);		
-		Set<Spreadsheet> spreadsheets = this.reader.get(resource.getPath());
+		Spreadsheet spreadsheets = this.reader.get(resource.getPath());
 		assertThat(spreadsheets, is(notNullValue()));
 		assertThat(spreadsheets.size(), is(equalTo(2847)));
 	}

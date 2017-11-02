@@ -42,7 +42,7 @@ public class CommonNameRepositoryTest extends AbstractTest {
 	
 	@Test
 	public void shouldFindByNameUsingFrequence() {
-		CommonName commonName = this.repository.findByNameUsingFrequence(DEFAULT_COMMON_NAME_SIMILAR);
+		CommonName commonName = this.repository.findByNameUsingFrequence("biriba");
 
 		assertThat(commonName, is(not(nullValue())));
 		assertThat(commonName.getName(), is(equalTo("biriba")));

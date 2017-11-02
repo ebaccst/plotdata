@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.inpe.ccst.eba.AbstractTest;
+import br.inpe.ccst.eba.domain.impl.Genus;
 
 public class GenusRepositoryTest extends AbstractTest {
 	
@@ -30,5 +31,12 @@ public class GenusRepositoryTest extends AbstractTest {
 		assertThat(options.size(), is(equalTo(12)));
 		assertThat(options.get(0), is(equalTo("anneslea")));
 		assertThat(options.get(1), is(equalTo("annickia")));
+	}
+	
+	@Test
+	public void shouldFindByName() {
+		Genus findByName = this.repository.findByName("anneslea");
+		
+		assertThat(findByName.getId(), is(not(nullValue())));
 	}
 }

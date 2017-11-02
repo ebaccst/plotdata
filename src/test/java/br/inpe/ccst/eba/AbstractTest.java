@@ -11,13 +11,14 @@ import br.inpe.ccst.eba.domain.impl.CommonName;
 import br.inpe.ccst.eba.domain.impl.Family;
 import br.inpe.ccst.eba.domain.impl.Genus;
 import br.inpe.ccst.eba.domain.impl.Species;
+import br.inpe.ccst.eba.plot.Record;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public abstract class AbstractTest {
 	protected static final Integer DEFAULT_COUNT_RECORDS = 1;
 	
-	protected static final String DEFAULT_COMMON_NAME_SIMILAR = "biriba";
+	protected static final String DEFAULT_COMMON_NAME_SIMILAR = "birib";
 	
 	protected static final String DEFAULT_FAMILY_GENUS_NAME_LIKE = "ann";
 	
@@ -40,7 +41,7 @@ public abstract class AbstractTest {
 	}
 	
 	protected CommonName getDefaultCommonName() {
-		return CommonName.builder().name(DEFAULT_COMMON_NAME_SIMILAR).family(getDefaultFamily()).genus(getDefaultGenus()).build();
+		return CommonName.builder().name("biriba").family(getDefaultFamily()).genus(getDefaultGenus()).build();
 	}
 	
 	protected Family getDefaultFamily() {
@@ -53,5 +54,14 @@ public abstract class AbstractTest {
 	
 	protected Species getDefaultSpecies() {
 		return Species.builder().name("antrocaryon nannanii").build();
+	}
+	
+	protected Record getDefaultRecord() {
+		final CommonName commonName = getDefaultCommonName();
+		return Record.builder()
+				.commonName(commonName.getName())
+				.family(commonName.getFamily().getName())
+				.genus(commonName.getGenus().getName())
+				.build();
 	}
 }
