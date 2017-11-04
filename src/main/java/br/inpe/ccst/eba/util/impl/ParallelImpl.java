@@ -19,7 +19,7 @@ public class ParallelImpl implements Parallel {
 		final int min = 1;
 		if (chunkSize <= min) {
 			throw new IllegalArgumentException(
-					String.format("Argument 'chunkSize' should be an integer greater than 0, got %d.", chunkSize));
+					String.format("Argument 'chunkSize' should be an integer greater than 1, got %d.", chunkSize));
 		}
 
 		final int size = elements.size();

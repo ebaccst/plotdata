@@ -1,6 +1,7 @@
 package br.inpe.ccst.eba.validator.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component("suggestionValidator")
 public class SuggestionValidator implements SpreadsheetValidator {
+	private static final String TABLE_NOT_FOUND_MESSAGE = "Family '%s', Genus '%s', Species '%s' and Common name '%s' not found in database.";
+	private static final String COLUMN_NOT_FOUND_MESSAGE = "%s '%s' not found in database.";
+	private static final String SUGGESTION_MESSAGE = " Do you mean '%s'?";
+	private static final int MAX_SIZE = 1000;
+	private static final int MAX_THREADS = 10;
+
 	@Autowired
 	private CommonNameService commonNameService;
 
 	@Autowired
 	private TaxonomyService taxonomyService;
-	
-	private final static String TABLE_NOT_FOUND_MESSAGE = "Family '%s', Genus '%s', Species '%s' and Common name '%s' not found in database.";
-	private final static String COLUMN_NOT_FOUND_MESSAGE = "%s '%s' not found in database.";
-	private final static String SUGGESTION_MESSAGE = " Do you mean '%s'?";
 
 	@Override
 	public Map<Long, String> validate(Spreadsheet input) {
 		Map<Long, String> errors = new HashMap<>();
-		input.each(rec -> check(errors, rec));
+		if (input.size() > MAX_SIZE) {
+			input.eachChunk(MAX_THREADS, chunk -> asyncCheck(errors, chunk).start());
+		} else {
+			input.each(rec -> check(errors, rec));
+		}
+
 		return errors;
+	}
+
+	private Thread asyncCheck(Map<Long, String> errors, List<Record> chunk) {
+		return new Thread(() -> chunk.forEach(rec -> check(errors, rec)));
 	}
 
 	private void check(Map<Long, String> errors, Record rec) {

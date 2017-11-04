@@ -24,12 +24,12 @@ public class CommonNameServiceImpl implements CommonNameService {
     }
 
     @Override
-	public CommonName getCommonName(String name) {
+	public synchronized CommonName getCommonName(String name) {
     	return this.repository.findByNameUsingFrequence(name);
 	}
     
 	@Override
-	public CommonName getSuggestion(String name) {
+	public synchronized CommonName getSuggestion(String name) {
 		List<String> options = this.repository.findByNameLike(name);
 		String sug = suggestion.getBestMatch(name, options);
 		return this.getCommonName(sug);

@@ -46,4 +46,13 @@ public class SpreadsheetTest extends AbstractTest {
 		});
 	}
 
+	@Test
+	public void eachChunk() {
+		Spreadsheet spreadsheet = Spreadsheet.builder().record(record).record(record).record(record).record(record).build();
+		
+		spreadsheet.eachChunk(2, chunk -> {
+			assertThat(chunk.size(), is(2));
+		});
+	}
+
 }
