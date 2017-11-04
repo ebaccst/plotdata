@@ -1,30 +1,43 @@
 package br.inpe.ccst.eba;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import br.inpe.ccst.eba.service.CommonNameService;
 
 @SpringBootApplication
 public class App {
-	@Bean
-	CommandLineRunner commonName(CommonNameService commonNameService) {
-		return args -> {
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			System.out.println(commonNameService.getCountOfRecords());
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		};
-	}
-
 	// @Bean
-	// CommandLineRunner repo(FamilyRepository repo) {
+	// CommandLineRunner commonName(CommonNameService commonNameService) {
 	// return args -> {
 	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-	// Family findOne = repo.findOne(1L);
-	// System.out.println(findOne.getName());
+	// System.out.println(commonNameService.getCountOfRecords());
+	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+	// };
+	// }
+
+//	@Bean
+//	CommandLineRunner teste(SpreadsheetReader reader) {
+//		return args -> {
+//			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//			Spreadsheet spreadsheet = reader
+//					.get("C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\JARAUA_2017_RESUMO.csv");
+//
+//			spreadsheet.each(rec -> {
+//				System.err.println(rec.getCommonName());
+//			});
+//			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//		};
+//	}
+
+	// @Bean
+	// CommandLineRunner teste(SpreadsheetReader reader, SpreadsheetValidator
+	// suggestionValidator) {
+	// return args -> {
+	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+	// Spreadsheet spreadsheet =
+	// reader.get("C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\JARAUA_2017_RESUMO.csv");
 	//
+	// Map<Long, String> errors = suggestionValidator.validate(spreadsheet);
+	// System.err.println(errors.size());
 	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 	// };
 	// }

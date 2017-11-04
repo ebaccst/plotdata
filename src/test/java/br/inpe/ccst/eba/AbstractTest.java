@@ -23,7 +23,9 @@ public abstract class AbstractTest {
 	protected static final String DEFAULT_FAMILY_GENUS_NAME_LIKE = "ann";
 	
 	protected static final String DEFAULT_SPECIES_NAME_LIKE = "anna";
-		
+
+	protected static final String SPREADSHEET = "JARAUA_2017_RESUMO.csv";
+
 	protected List<String> getDefaultOptionsCommonNames() {
 		return Arrays.asList(DEFAULT_COMMON_NAME_SIMILAR, "biribazinho");
 	}

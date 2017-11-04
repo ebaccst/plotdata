@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.inpe.ccst.eba.AbstractTest;
 
 public class SpreadsheetReaderTest extends AbstractTest {
-	
-	private static final String SPREADSHEET = "JARAUA_2017_RESUMO.csv";
-	
+
 	@Autowired
 	private SpreadsheetReader reader;
 
@@ -23,16 +21,16 @@ public class SpreadsheetReaderTest extends AbstractTest {
 	public void shouldSpreedsheetReaderNotBeNull() {
 		assertThat(reader, is(notNullValue()));
 	}
-	
+
 	@Test
 	public void shouldSpreadsheetResourceExists() {
-		URL resource = this.getClass().getClassLoader().getResource(SPREADSHEET);		
+		URL resource = this.getClass().getClassLoader().getResource(SPREADSHEET);
 		assertThat(resource, is(notNullValue()));
 	}
-	
+
 	@Test
 	public void shouldLoadASpreadsheetFromDisk() {
-		URL resource = this.getClass().getClassLoader().getResource(SPREADSHEET);		
+		URL resource = this.getClass().getClassLoader().getResource(SPREADSHEET);
 		Spreadsheet spreadsheets = this.reader.get(resource.getPath());
 		assertThat(spreadsheets, is(notNullValue()));
 		assertThat(spreadsheets.size(), is(equalTo(2847)));

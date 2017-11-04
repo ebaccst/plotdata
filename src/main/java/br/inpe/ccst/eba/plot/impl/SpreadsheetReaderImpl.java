@@ -1,8 +1,10 @@
 package br.inpe.ccst.eba.plot.impl;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 import org.apache.commons.csv.CSVFormat;
@@ -20,42 +22,41 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration("spreadsheetReader")
 @Slf4j
 public class SpreadsheetReaderImpl implements SpreadsheetReader {
-	
+	private static final String CHARSET = "UTF-8";
+
 	@Value("${app.spreadsheet.delimiter}")
 	private char delimiter;
-	
+
 	@Override
 	public Spreadsheet get(String filepath) {
 		CSVFormat csvFormat = CSVFormat.RFC4180
 				.withFirstRecordAsHeader()
 				.withIgnoreEmptyLines()
 				.withIgnoreSurroundingSpaces()
+				.withTrim()
 				.withDelimiter(delimiter);
-		
-		 SpreadsheetBuilder builder = Spreadsheet.builder();
-	
-		try {
-			Reader in = new FileReader(filepath);
+
+		SpreadsheetBuilder builder = Spreadsheet.builder();
+
+		try (InputStream is = new FileInputStream(filepath)) {
+			Reader in = new InputStreamReader(is, CHARSET);
 			Iterable<CSVRecord> records = csvFormat.parse(in);
 			for (CSVRecord record : records) {
-				
-				Record rec = Record.builder()
-					.recordNumber(record.getRecordNumber())
-					.plot(record.get(SpreadsheetHeader.PLOT.get()))
-					.informationPlot(record.get(SpreadsheetHeader.INFORMATION_PLOT.get()))
-					.year(record.get(SpreadsheetHeader.YEAR.get()))
-					.treeId(record.get(SpreadsheetHeader.TREE_ID.get()))
-					.commonName(record.get(SpreadsheetHeader.COMMON_NAME.get()))
-					.family(record.get(SpreadsheetHeader.FAMILY.get()))
-					.genus(record.get(SpreadsheetHeader.GENUS.get()))
-					.species(record.get(SpreadsheetHeader.SPECIES.get()))
-					.height(record.get(SpreadsheetHeader.HEIGHT.get()))
-					.dap(record.get(SpreadsheetHeader.DAP.get()))
-					.informationDead(record.get(SpreadsheetHeader.INFORMATION_DEAD.get()))
-					.informationType(record.get(SpreadsheetHeader.INFORMATION_TYPE.get()))
-					.build();
-				
-			   builder.record(rec);
+
+				Record rec = Record.builder().recordNumber(record.getRecordNumber())
+						.plot(record.get(SpreadsheetHeader.PLOT.get()))
+						.informationPlot(record.get(SpreadsheetHeader.INFORMATION_PLOT.get()))
+						.year(record.get(SpreadsheetHeader.YEAR.get()))
+						.treeId(record.get(SpreadsheetHeader.TREE_ID.get()))
+						.commonName(record.get(SpreadsheetHeader.COMMON_NAME.get()))
+						.family(record.get(SpreadsheetHeader.FAMILY.get()))
+						.genus(record.get(SpreadsheetHeader.GENUS.get()))
+						.species(record.get(SpreadsheetHeader.SPECIES.get()))
+						.height(record.get(SpreadsheetHeader.HEIGHT.get())).dap(record.get(SpreadsheetHeader.DAP.get()))
+						.informationDead(record.get(SpreadsheetHeader.INFORMATION_DEAD.get()))
+						.informationType(record.get(SpreadsheetHeader.INFORMATION_TYPE.get())).build();
+
+				builder.record(rec);
 			}
 		} catch (FileNotFoundException e) {
 			log.error("Spreedsheet not found in '{}': {}", filepath, e.getMessage());

@@ -24,6 +24,7 @@ public class NormalizerTest extends AbstractTest {
 	public void shouldRemoveAccent() {
 		assertThat(normalizer.apply("gitó"), is(equalTo("gito")));
 		assertThat(normalizer.apply("açaí"), is(equalTo("acai")));
+		assertThat(normalizer.apply("caximbão"), is(equalTo("caximbao")));
 	}
 	
 	@Test
