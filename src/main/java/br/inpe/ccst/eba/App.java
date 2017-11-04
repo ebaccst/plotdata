@@ -14,19 +14,19 @@ public class App {
 	// };
 	// }
 
-//	@Bean
-//	CommandLineRunner teste(SpreadsheetReader reader) {
-//		return args -> {
-//			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//			Spreadsheet spreadsheet = reader
-//					.get("C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\JARAUA_2017_RESUMO.csv");
-//
-//			spreadsheet.each(rec -> {
-//				System.err.println(rec.getCommonName());
-//			});
-//			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//		};
-//	}
+	// @Bean
+	// CommandLineRunner teste(SpreadsheetReader reader) {
+	// return args -> {
+	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+	// Spreadsheet spreadsheet = reader
+	// .get("C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\JARAUA_2017_RESUMO.csv");
+	//
+	// spreadsheet.each(rec -> {
+	// System.err.println(rec.getCommonName());
+	// });
+	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+	// };
+	// }
 
 	// @Bean
 	// CommandLineRunner teste(SpreadsheetReader reader, SpreadsheetValidator

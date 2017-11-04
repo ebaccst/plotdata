@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration("spreadsheetReader")
 @Slf4j
 public class SpreadsheetReaderImpl implements SpreadsheetReader {
-	private static final String CHARSET = "UTF-8";
+	private static final String CHARSET = "ISO-8859-1";
 
 	@Value("${app.spreadsheet.delimiter}")
 	private char delimiter;
