@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -19,10 +21,10 @@ import br.inpe.ccst.eba.plot.SpreadsheetHeader;
 import br.inpe.ccst.eba.plot.SpreadsheetReader;
 import lombok.extern.slf4j.Slf4j;
 
-@Configuration("spreadsheetReader")
 @Slf4j
+@Configuration("spreadsheetReader")
 public class SpreadsheetReaderImpl implements SpreadsheetReader {
-	private static final String CHARSET = "ISO-8859-1";
+	private static final Charset CHARSET = StandardCharsets.ISO_8859_1;
 
 	@Value("${app.spreadsheet.delimiter}")
 	private char delimiter;

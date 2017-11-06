@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 import br.inpe.ccst.eba.plot.Spreadsheet;
 import br.inpe.ccst.eba.plot.SpreadsheetReader;
+import br.inpe.ccst.eba.plot.SpreadsheetWriter;
 import br.inpe.ccst.eba.validator.SpreadsheetValidator;
 
 @SpringBootApplication
@@ -72,17 +73,18 @@ public class App {
 	// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 	// };
 	// }
+
 	@Bean
-	CommandLineRunner retrofit(SpreadsheetReader reader,
+	CommandLineRunner retrofit(SpreadsheetReader reader, SpreadsheetWriter spreadsheetWriter,
 			@Qualifier("globalNamesResolverValidator") SpreadsheetValidator gnr) {
 		return args -> {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			Spreadsheet spreadsheet = reader
 					.get("C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\JARAUA_2017_RESUMO.csv");
-			
+
 			Map<Long, String> errors = gnr.validate(spreadsheet);
-			System.out.println(errors.size());
-			errors.entrySet().forEach(rec -> System.out.println("Record: " + rec.getKey() + " with message: " + rec.getValue()));
+			spreadsheetWriter.write(errors,
+					"C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\errors.csv");
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		};
 	}
