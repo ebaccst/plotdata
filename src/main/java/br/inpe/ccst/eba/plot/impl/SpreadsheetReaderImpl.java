@@ -30,7 +30,7 @@ public class SpreadsheetReaderImpl implements SpreadsheetReader {
 	private char delimiter;
 
 	@Override
-	public Spreadsheet get(String filepath) {
+	public Spreadsheet read(String filepath) {
 		CSVFormat csvFormat = CSVFormat.RFC4180
 				.withFirstRecordAsHeader()
 				.withIgnoreEmptyLines()

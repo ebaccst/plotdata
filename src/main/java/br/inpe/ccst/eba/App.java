@@ -80,7 +80,7 @@ public class App {
 		return args -> {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			Spreadsheet spreadsheet = reader
-					.get("C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\JARAUA_2017_RESUMO.csv");
+					.read("C:\\Users\\EBA\\Documents\\dev\\git\\plotdata\\src\\test\\resources\\JARAUA_2017_RESUMO.csv");
 
 			Map<Long, String> errors = gnr.validate(spreadsheet);
 			spreadsheetWriter.write(errors,

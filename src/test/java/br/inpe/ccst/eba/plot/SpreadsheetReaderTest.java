@@ -31,7 +31,7 @@ public class SpreadsheetReaderTest extends AbstractTest {
 	@Test
 	public void shouldLoadASpreadsheetFromDisk() {
 		URL resource = this.getClass().getClassLoader().getResource(SPREADSHEET);
-		Spreadsheet spreadsheets = this.reader.get(resource.getPath());
+		Spreadsheet spreadsheets = this.reader.read(resource.getPath());
 		assertThat(spreadsheets, is(notNullValue()));
 		assertThat(spreadsheets.size(), is(equalTo(2847)));
 	}
