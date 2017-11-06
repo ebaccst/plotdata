@@ -11,7 +11,16 @@ import org.apache.commons.csv.CSVRecord;
 
 public class Impl {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
+		StringBuilder builder = new StringBuilder();
+		System.out.println(builder.length());
+		
+		builder.append("a");
+		
+		System.out.println(builder.length());
+	}
+
+	public static void csvExample() throws IOException {
 		String filepath = "C:\\Users\\EBA\\Documents\\data\\RESUMO_DADOS_PARCEIROS\\data\\done\\JARAUA_2017_RESUMO.csv";
 
 		InputStream is = new FileInputStream(filepath);
@@ -19,10 +28,7 @@ public class Impl {
 		CSVFormat csvFormat = CSVFormat.RFC4180
 				// .withHeader("Parcela", "Obs_parcela", "Ano", "N", "Nome_comum", "Familia",
 				// "Genero", "Especie", "Altura", "Alt_medida_estimada", "DAP", "Morta", "Tipo")
-				.withFirstRecordAsHeader()
-				.withIgnoreEmptyLines()
-				.withIgnoreSurroundingSpaces()
-				.withDelimiter(';');
+				.withFirstRecordAsHeader().withIgnoreEmptyLines().withIgnoreSurroundingSpaces().withDelimiter(';');
 
 		Iterable<CSVRecord> records = csvFormat.parse(in);
 		for (CSVRecord record : records) {

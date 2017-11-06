@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import br.inpe.ccst.eba.AbstractTest;
 import br.inpe.ccst.eba.plot.Record;
@@ -19,7 +20,12 @@ import br.inpe.ccst.eba.plot.Spreadsheet;
 public class SpreadsheetValidatorTest extends AbstractTest {
 
 	@Autowired
+	@Qualifier("suggestionValidator")
 	private SpreadsheetValidator suggestionValidator;
+	
+	@Autowired
+	@Qualifier("globalNamesResolverValidator")
+	private SpreadsheetValidator globalNameResolverValidator;
 
 	private Record record;
 
@@ -42,6 +48,13 @@ public class SpreadsheetValidatorTest extends AbstractTest {
 	public void shouldValidateSpreedshetUsingSuggestionWithNoError() {
 		Spreadsheet input = Spreadsheet.builder().record(record).build();
 		Map<Long, String> errors = this.suggestionValidator.validate(input);
+		assertThat(errors.size(), is(0));
+	}
+	
+	@Test
+	public void shouldValidateSpreedshetUsingGlobalNamesResolverWithNoError() {
+		Spreadsheet input = Spreadsheet.builder().record(record).build();
+		Map<Long, String> errors = this.globalNameResolverValidator.validate(input);
 		assertThat(errors.size(), is(0));
 	}
 
