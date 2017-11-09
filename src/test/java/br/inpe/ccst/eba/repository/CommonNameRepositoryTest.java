@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -25,11 +24,6 @@ public class CommonNameRepositoryTest extends AbstractTest {
 		assertNotNull(this.repository);
 	}
 
-	@Test
-	public void shouldGetCountOfRecords() {
-		assertEquals(new Integer(11743), this.repository.getCountOfRecords());
-	}
-	
 	@Test
 	public void shouldFindByNameLike() {
 		final List<String> commonNameLike = this.repository.findByNameLike(DEFAULT_COMMON_NAME_SIMILAR);

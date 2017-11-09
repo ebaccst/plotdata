@@ -17,4 +17,10 @@ public interface TaxonomyService {
 	Genus getSuggestionGenus(String name);
 
 	Species getSuggestionSpecies(String name);
+
+	Family saveFamily(String name);
+
+	Genus saveGenus(String name);
+
+	Species saveSpecies(String name);
 }

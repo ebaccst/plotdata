@@ -1,5 +1,6 @@
 package br.inpe.ccst.eba.validator.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,21 @@ public class SuggestionValidator implements SpreadsheetValidator {
 	public Map<Long, String> validate(Spreadsheet input) {
 		Map<Long, String> errors = new HashMap<>();
 		if (input.size() > MAX_SIZE) {
-			input.eachChunk(MAX_THREADS, chunk -> asyncCheck(errors, chunk).start());
+			List<Thread> resolvers = new ArrayList<>();
+			input.eachChunk(MAX_THREADS, chunk -> {
+				Thread resolver = asyncCheck(errors, chunk);
+				resolver.start();
+				resolvers.add(resolver);
+			});
+			
+			resolvers.forEach(thread -> {
+				try {
+					thread.join();
+				} catch (InterruptedException e) {
+					log.error(e.getMessage());
+					Thread.currentThread().interrupt();
+				}
+			});
 		} else {
 			input.each(rec -> check(errors, rec));
 		}

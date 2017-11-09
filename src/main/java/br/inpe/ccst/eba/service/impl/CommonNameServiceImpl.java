@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.inpe.ccst.eba.domain.impl.CommonName;
+import br.inpe.ccst.eba.domain.impl.Family;
+import br.inpe.ccst.eba.domain.impl.Genus;
+import br.inpe.ccst.eba.domain.impl.Species;
 import br.inpe.ccst.eba.repository.CommonNameRepository;
 import br.inpe.ccst.eba.service.CommonNameService;
 import br.inpe.ccst.eba.service.SuggestionService;
@@ -18,10 +22,6 @@ public class CommonNameServiceImpl implements CommonNameService {
     @Autowired
     private SuggestionService suggestion;
 
-    @Override
-    public Integer getCountOfRecords() {
-        return this.repository.getCountOfRecords();
-    }
 
     @Override
 	public synchronized CommonName getCommonName(String name) {
@@ -33,5 +33,18 @@ public class CommonNameServiceImpl implements CommonNameService {
 		List<String> options = this.repository.findByNameLike(name);
 		String sug = suggestion.getBestMatch(name, options);
 		return this.getCommonName(sug);
+	}
+
+	@Override
+	@Transactional
+	public CommonName save(String name, Family family, Genus genus, Species species) {
+		CommonName commonName = CommonName.builder()
+			.name(name)
+			.family(family)
+			.genus(genus)
+			.species(species)
+			.build();
+		
+		return this.repository.save(commonName);
 	}
 }

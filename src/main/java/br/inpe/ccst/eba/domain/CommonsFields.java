@@ -10,12 +10,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @MappedSuperclass
-public abstract class CommonsFields extends AbstractEntity{
-	private static final long serialVersionUID = 1L;
+public abstract class CommonsFields {
 
 	@Column(name = "name", nullable = false)
-    private String name;
+	private String name;
 }

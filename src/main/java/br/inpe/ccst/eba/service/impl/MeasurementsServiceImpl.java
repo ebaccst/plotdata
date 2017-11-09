@@ -1,12 +1,14 @@
 package br.inpe.ccst.eba.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.inpe.ccst.eba.domain.impl.Measurements;
 import br.inpe.ccst.eba.repository.MeasurementsRepository;
 import br.inpe.ccst.eba.service.MeasurementsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service("measurementsService")
 public class MeasurementsServiceImpl implements MeasurementsService {
@@ -18,8 +20,9 @@ public class MeasurementsServiceImpl implements MeasurementsService {
         return this.repository.findAll();
     }
 
-    @Override
-    public Integer getCountOfRecords() {
-        return this.repository.getCountOfRecords();
-    }
+	@Override
+	@Transactional
+	public Measurements save(Measurements measurements) {	
+		return this.repository.save(measurements);
+	}
 }

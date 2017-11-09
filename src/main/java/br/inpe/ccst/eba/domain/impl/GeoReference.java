@@ -2,11 +2,14 @@ package br.inpe.ccst.eba.domain.impl;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.vividsolutions.jts.geom.Point;
 
-import br.inpe.ccst.eba.domain.AbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -21,9 +24,14 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class GeoReference extends AbstractEntity {
-	private static final long serialVersionUID = 1L;
+@EqualsAndHashCode
+public class GeoReference {
+	
+	@Id
+	@SequenceGenerator(name = "geo_reference_id_seq", sequenceName = "geo_reference_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "geo_reference_id_seq")
+	@Column(name = "id", updatable = false)
+    private Long id;
 
     @Column(name = "x")
     private Double x;
@@ -37,6 +45,6 @@ public class GeoReference extends AbstractEntity {
     @Column(name = "azimuth")
     private Float azimuth;
 
-    @Column(name = "geom", nullable = false, columnDefinition = "geometry(Point,5880)")
+    @Column(name = "geom", nullable = true, columnDefinition = "geometry(Point, 5880)")
     private Point geom;
 }

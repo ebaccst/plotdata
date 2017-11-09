@@ -6,10 +6,15 @@ import java.util.function.Consumer;
 import br.inpe.ccst.eba.util.Parallel;
 import br.inpe.ccst.eba.util.impl.ParallelImpl;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Singular;
 
 @Builder
 public class Spreadsheet {
+	
+	@Getter
+	private String filepath;
+	
 	@Singular
 	private List<Record> records;
 

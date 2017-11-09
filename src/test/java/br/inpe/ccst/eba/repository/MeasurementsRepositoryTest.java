@@ -1,6 +1,5 @@
 package br.inpe.ccst.eba.repository;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -15,11 +14,6 @@ public class MeasurementsRepositoryTest extends AbstractTest {
 	@Test
 	public void shouldRepositoryNotBeNull() {
 		assertNotNull(this.repository);
-	}
-
-	@Test
-	public void shouldGetCountOfRows() {
-		assertEquals(new Integer(10186), this.repository.getCountOfRecords());
 	}
 
 }

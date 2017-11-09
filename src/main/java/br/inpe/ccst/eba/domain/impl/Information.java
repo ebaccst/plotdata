@@ -4,9 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.inpe.ccst.eba.domain.AbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -21,19 +24,24 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Information extends AbstractEntity {
-	private static final long serialVersionUID = 1L;
+@EqualsAndHashCode
+public class Information {
 	
-    @Column(name = "plot")
-    private String plot;
+	@Id
+	@SequenceGenerator(name = "information_id_seq", sequenceName = "information_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "information_id_seq")
+	@Column(name = "id")
+    private Long id;
 
     @Column(name = "height")
     @Enumerated(EnumType.STRING)
     private InformationHeight height;
+    
+    @Column(name = "tree_id")
+    private String treeId;
 
     @Column(name = "dead")
-    private String dead;
+    private Boolean dead;
 
     @Column(name = "type")
     private String type;

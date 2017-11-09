@@ -1,11 +1,11 @@
 package br.inpe.ccst.eba.service;
 
-import br.inpe.ccst.eba.domain.impl.Measurements;
-
 import java.util.List;
+
+import br.inpe.ccst.eba.domain.impl.Measurements;
 
 public interface MeasurementsService {
     List<Measurements> getMeasurements();
-
-    Integer getCountOfRecords();
+    
+    Measurements save(Measurements measurements);
 }

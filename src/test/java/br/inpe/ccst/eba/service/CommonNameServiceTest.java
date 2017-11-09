@@ -5,7 +5,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -28,9 +27,6 @@ public class CommonNameServiceTest extends AbstractTest {
 
 	@Before
 	public void setUp() {
-		when(this.repositoryMock.getCountOfRecords())
-			.thenReturn(DEFAULT_COUNT_RECORDS);
-		
 		when(this.repositoryMock.findByNameLike(DEFAULT_COMMON_NAME_SIMILAR))
 			.thenReturn(getDefaultOptionsCommonNames());
 		
@@ -42,11 +38,6 @@ public class CommonNameServiceTest extends AbstractTest {
 	@Test
 	public void shouldServiceNotBeNull() {
 		assertNotNull(this.service);
-	}
-
-	@Test
-	public void testGetCountOfRecords() {
-		assertEquals(DEFAULT_COUNT_RECORDS, this.service.getCountOfRecords());
 	}
 	
 	@Test

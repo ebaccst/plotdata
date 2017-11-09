@@ -1,13 +1,17 @@
 package br.inpe.ccst.eba.domain.impl;
 
-
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.inpe.ccst.eba.domain.CommonsFields;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,39 +22,36 @@ import lombok.Setter;
 @Table(name = "taxonomy")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Taxonomy extends CommonsFields{
-	private static final long serialVersionUID = 1L;
+@AllArgsConstructor
+@EqualsAndHashCode
+public class Taxonomy {
 
-    @JoinColumn(name = "family_id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private Family family;
+	@Id
+	@SequenceGenerator(name = "taxonomy_id_seq", sequenceName = "taxonomy_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taxonomy_id_seq")
+	@Column(name = "id", updatable = false)
+	private Long id;
 
-    @JoinColumn(name = "genus_id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private Genus genus;
+	@JoinColumn(name = "family_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	private Family family;
 
-    @JoinColumn(name = "species_id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private Species species;
+	@JoinColumn(name = "genus_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	private Genus genus;
 
-    @JoinColumn(name = "density", nullable = false)
-    private Double density;
+	@JoinColumn(name = "species_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	private Species species;
 
-    @JoinColumn(name = "region")
-    private String region;
+	@JoinColumn(name = "density", nullable = false)
+	private Double density;
 
-    @JoinColumn(name = "article_reference")
-    private String articleReference;
+	@JoinColumn(name = "region")
+	private String region;
 
-    @Builder
-	public Taxonomy(String name, Family family, Genus genus, Species species) {
-		super(name);
-		this.family = family;
-		this.genus = genus;
-		this.species = species;
-	}
-    
-    
+	@JoinColumn(name = "article_reference")
+	private String articleReference;
 }

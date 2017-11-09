@@ -3,11 +3,18 @@ package br.inpe.ccst.eba.domain.impl;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.inpe.ccst.eba.domain.AbstractEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -22,43 +29,45 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Measurements extends AbstractEntity {
-	private static final long serialVersionUID = 1L;
+@EqualsAndHashCode
+public class Measurements {
 	
-    @JoinColumn(name = "owner_id")
-    @OneToOne(cascade = CascadeType.ALL)
-    private Owner owner;
-
-    @JoinColumn(name = "information_id")
-    @OneToOne(cascade = CascadeType.ALL)
+	@Id
+	@SequenceGenerator(name = "measurements_id_seq", sequenceName = "measurements_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "measurements_id_seq")
+	@Column(name = "id", updatable = false)
+    private Long id;
+	
+	@JoinColumn(name = "information_id")
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Information information;
+	
+    @JoinColumn(name = "plot_id")
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
+    private Plot plot;
 
     @JoinColumn(name = "geo_reference_id")
     @OneToOne(cascade = CascadeType.ALL)
     private GeoReference geoReference;
 
     @JoinColumn(name = "common_name_id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private CommonName commonName;
 
     @JoinColumn(name = "family_id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Family family;
 
     @JoinColumn(name = "genus_id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Genus genus;
 
     @JoinColumn(name = "species_id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Species species;
 
     @Column(name = "tree_id")
     private Integer treeId;
-
-    @Column(name = "plot")
-    private String plot;
 
     @Column(name = "year")
     private Integer year;
@@ -77,4 +86,16 @@ public class Measurements extends AbstractEntity {
 
     @Column(name = "agb")
     private Double agb;
+    
+    @Override
+	public String toString() {
+		try {
+			return new ObjectMapper()
+					.writer()
+					.withDefaultPrettyPrinter()
+					.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			return super.toString();
+		}
+	}
 }

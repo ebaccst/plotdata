@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.inpe.ccst.eba.domain.impl.Family;
 import br.inpe.ccst.eba.domain.impl.Genus;
@@ -62,6 +63,36 @@ public class TaxonomyServiceImpl implements TaxonomyService {
 		List<String> options = this.speciesRepository.findByNameLike(name);
 		String sug = this.suggestion.getBestMatch(name, options);
 		return this.findSpecies(sug);
+	}
+
+	@Override
+	@Transactional
+	public Family saveFamily(String name) {
+		Family family = Family.builder()
+			.name(name)
+			.build();
+
+		return this.familyRepository.save(family);
+	}
+
+	@Override
+	@Transactional
+	public Genus saveGenus(String name) {
+		Genus genus = Genus.builder()
+			.name(name)
+			.build();
+		
+		return this.genusRepository.save(genus);
+	}
+
+	@Override
+	@Transactional
+	public Species saveSpecies(String name) {
+		Species species = Species.builder()
+			.name(name)
+			.build();
+
+		return this.speciesRepository.save(species);
 	}
 
 }
