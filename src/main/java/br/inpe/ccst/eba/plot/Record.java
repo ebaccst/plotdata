@@ -78,13 +78,16 @@ public class Record implements Comparable<Record>{
 	public static class RecordBuilder {
 		private static final Normalizer NORMALIZER = new NormalizerImpl();
 
+		private static final String PATTERN_SPACES = "\\s+";
 		private static final String PATTERN_IS_NUMERIC = "[+-]?\\d*(\\.\\d+)?";
 		private static final String PATTERN_IS_ALPHANUMERIC = "^[a-zA-Z0-9]*$";
 		private static final Pattern PATTERN_TREE_ID = Pattern.compile("([0-9]+)(.*)");
 		
 		private static final String NA = "na";
+		private static final String ND = "#n/d";
 		private static final String ERROR_EXCEL = "#valor!";
 		private static final String MEASURED = "med";
+		private static final String EMPTY = "";
 
 		private Long recordNumber;
 		private String plot;
@@ -243,9 +246,14 @@ public class Record implements Comparable<Record>{
 		}
 
 		private boolean isValid(String argument, String value) {
-			if (value == null || NA.equalsIgnoreCase(value) || ERROR_EXCEL.equalsIgnoreCase(value)) {
-				log.warn("Argument '{}' NA in record {}", argument, this.recordNumber);
+			if (value == null) {
 				return false;
+			} else {
+				String preNormalizedValue = value.replace(PATTERN_SPACES, EMPTY);
+				if (preNormalizedValue.isEmpty() || NA.equalsIgnoreCase(preNormalizedValue) || ND.equalsIgnoreCase(preNormalizedValue) || ERROR_EXCEL.equalsIgnoreCase(preNormalizedValue)) {
+					log.warn("Argument '{}' in record {} is invalid, got '{}'", argument, this.recordNumber, value);
+					return false;
+				}
 			}
 
 			return true;

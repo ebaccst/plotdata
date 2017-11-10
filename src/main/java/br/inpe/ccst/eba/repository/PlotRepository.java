@@ -14,4 +14,7 @@ public interface PlotRepository extends JpaRepository<Plot, Long> {
 	Plot findByObservation(String observation);
 
 	Plot findByTransect(String transect);
+
+	@Query(nativeQuery = true, value = "SELECT fheight_agb_living_trees();")
+	boolean updateAGB();
 }

@@ -8,5 +8,6 @@ public interface DataService {
 	void validate(Spreadsheet spreadsheet);
 	
 	void insert(PlotOwner plotOwner, Spreadsheet spreadsheet);
-
+	
+	void updateAGB();
 }

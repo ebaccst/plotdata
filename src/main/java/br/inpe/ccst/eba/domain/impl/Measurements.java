@@ -77,6 +77,9 @@ public class Measurements {
 
     @Column(name = "height")
     private Float height;
+    
+    @Column(name = "height_feld")
+    private Float heightFeld;
 
     @Column(name = "density")
     private Double density;

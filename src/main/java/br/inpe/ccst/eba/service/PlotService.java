@@ -13,4 +13,6 @@ public interface PlotService {
 	Plot getPlotByTransect(String transect);
 
 	Plot save(String name, Owner owner, String observation, String transect, String shapefileDirectory);
+
+	void updateAGB();
 }

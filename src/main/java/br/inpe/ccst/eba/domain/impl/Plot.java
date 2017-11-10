@@ -29,26 +29,32 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Plot extends CommonsFields {
-	
+
 	@Id
 	@SequenceGenerator(name = "plot_id_seq", sequenceName = "plot_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plot_id_seq")
 	@Column(name = "id", updatable = false)
-    private Long id;
+	private Long id;
 
 	@JoinColumn(name = "owner_id")
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Owner owner;
-	
+
 	@Column(name = "observation")
-    private String observation;
-	
+	private String observation;
+
 	@Column(name = "transect")
 	private String transect;
-	
-	@Column(name = "geom", nullable = true, columnDefinition = "geometry(Geometry)")
-    private Geometry geom;
-	
+
+	@Column(name = "agb_plot")
+	private Double agb;
+
+	@Column(name = "density_plot")
+	private Double density;
+
+	@Column(name = "geom", nullable = true, columnDefinition = "geometry(Geometry, 5880)")
+	private Geometry geom;
+
 	@OneToMany(mappedBy = "plot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Measurements> measurements;
 

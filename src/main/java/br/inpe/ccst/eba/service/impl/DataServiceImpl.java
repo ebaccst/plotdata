@@ -120,6 +120,11 @@ public class DataServiceImpl implements DataService {
 		
 		log.info("Spreadsheet was successfully inserted in the database.");
 	}
+	
+	@Override
+	public void updateAGB() {
+		this.plotService.updateAGB();
+	}
 
 
 	private Information getInformation(InformationHeight informationHeight, String informationTreeId, Boolean informationDead, String informationType) {

@@ -73,4 +73,10 @@ public class PlotServiceImpl implements PlotService {
 		return this.repository.save(plotBuilder.build());
 	}
 
+	@Override
+	public void updateAGB() {
+		log.info("Updating AGB.");
+		this.repository.updateAGB();
+	}
+
 }

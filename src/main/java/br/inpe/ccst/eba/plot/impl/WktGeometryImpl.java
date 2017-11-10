@@ -12,6 +12,7 @@ import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.simple.SimpleFeatureSource;
 import org.opengis.feature.simple.SimpleFeature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import com.vividsolutions.jts.geom.Geometry;
@@ -23,6 +24,9 @@ public class WktGeometryImpl implements WktGeometry {
 	
 	private static final String SHAPEFILE_EXTENSION = ".shp";
 	private static final String SHAPEFILE_NOT_FOUND_MESSAGE = "Shapefile '%s' not found in directory '%s'.";
+	
+	@Value("${app.shapefiles.epsg}")
+	private int epsg;
 
 	@Override
 	public Geometry getGeometry(Path directory, String filename) throws IOException {
@@ -43,7 +47,10 @@ public class WktGeometryImpl implements WktGeometry {
 
 		iterator.close();
 		store.dispose();
-		return (Geometry) defaultGeometry;
+		
+		Geometry geom = (Geometry) defaultGeometry;
+		geom.setSRID(epsg);
+		return geom;
 	}
 	
 	private Optional<Path> findShapefile(Path directory, String filename) throws IOException {
