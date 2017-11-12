@@ -219,12 +219,14 @@ public class DataServiceImpl implements DataService {
 			owner = ownerCache.get(recPlot);
 		} else {
 			Owner ownerArgs = plotOwner.owner(recPlot);
-			owner = ownerService.getOwnerByName(ownerArgs.getName());
-			if (owner == null) {
-				owner = ownerService.save(ownerArgs.getName(), ownerArgs.getInstitution());
-			}
+			if (ownerArgs != null) {
+				owner = ownerService.getOwnerByName(ownerArgs.getName());
+				if (owner == null) {
+					owner = ownerService.save(ownerArgs.getName(), ownerArgs.getInstitution());
+				}
 
-			ownerCache.put(recPlot, owner);
+				ownerCache.put(recPlot, owner);
+			}
 		}
 		return owner;
 	}
