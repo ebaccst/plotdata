@@ -34,8 +34,12 @@
 ::mvn spring-boot:run -Drun.arguments="--spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\IZA_2014_RESUMO.csv,--owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv,--shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880,--insert=true"
 ::mvn spring-boot:run -Drun.arguments="--spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\MVEMB_2015_RESUMO.csv,--owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv,--shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880,--insert=true"
 ::mvn spring-boot:run -Drun.arguments="--spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\POLY_2016_RESUMO.csv,--owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv,--shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880,--insert=true"
-
-mvn spring-boot:run -Drun.arguments="--spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\TREES_2016_2015_RESUMO.csv,--owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv,--shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880,--insert=true"
+::mvn spring-boot:run -Drun.arguments="--spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\TREES_2016_2015_RESUMO.csv,--owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv,--shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880,--insert=true"
 
 :: Final
-::java -jar plotdata.jar --spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\JARAUA_2017_RESUMO.csv --owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv --shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880 --insert=true
+
+:: validate
+::java -jar plotdata-1.0-SNAPSHOT.jar --spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\JARAUA_2017_RESUMO.csv --owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv --shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880
+
+:: insert
+::java -jar plotdata-1.0-SNAPSHOT.jar --spreadsheet=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\data\JARAUA_2017_RESUMO.csv --owner=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\responsaveis_parcelas.csv --shapefiles=C:\Users\EBA\Documents\data\RESUMO_DADOS_PARCEIROS\shp\epsg_5880 --insert=true
